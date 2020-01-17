@@ -1,5 +1,6 @@
-result = ""
+# v0.9
 
+result = ""
 
 # This function is a modified modular multiplicative inverse
 def modInverse(y):
