@@ -1,11 +1,10 @@
-result = "Result is "
+result = ""
 
 
 # This function is a modified modular multiplicative inverse
-def modInverse(a, y):
-    a = a % 26
+def modInverse(y):
     for x in range(0, 26):
-        if ((a * x) % 26) + 7 == y:
+        if (9 * x) % 26 == ((y - 7) % 26):
             return x
     return x
 
@@ -30,7 +29,9 @@ elif select == "D":  # This is the driver code to for decryption
             number_input = int(code_input)
         else:
             number_input = (ord(str(my_list[i]).lower()) - 97)
-        intresult = modInverse(9, number_input)
+            print(ord(str(my_list[i]).lower()))
+            print(number_input)
+        intresult = modInverse(number_input)
         print("Decoded Number is " + str(intresult))
         result = result + chr(intresult + 97).upper()
-    print("Decoded Word is " + str(result))
+    print("Decoded Word is " + result)
