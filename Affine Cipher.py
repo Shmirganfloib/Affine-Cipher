@@ -10,8 +10,11 @@ def modInverse(y):
     return x
 
 
-select = input("Type E for encryption and D for decryption")
-code_input = input("Enter the Word")
+select = input("Enter E for encryption or D for decryption: ")
+if select == "E":
+    code_input = input("Enter word to be encoded: ")
+elif select == "D":
+    code_input = input("Enter word to be decoded: ")
 
 my_list = list(code_input)
 print(len(code_input))
@@ -33,6 +36,6 @@ elif select == "D":  # This is the driver code to for decryption
             print(ord(str(my_list[i]).lower()))
             print(number_input)
         intresult = modInverse(number_input)
-        print("Decoded Number is " + str(intresult))
+        print("Decoded number is " + str(intresult))
         result = result + chr(intresult + 97).upper()
-    print("Decoded Word is " + result)
+    print("Decoded word is " + result)
