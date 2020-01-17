@@ -9,7 +9,6 @@ def modInverse(y):
             return x
     return x
 
-
 select = input("Enter E for encryption or D for decryption: ")
 if select == "E":
     code_input = input("Enter word to be encoded: ")
