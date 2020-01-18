@@ -31,7 +31,10 @@ while 0 == 0:
                 else:
                     current_character = my_list[i].lower()
                     number_input = (ord(current_character) - 97)
-                intresult = ((int(number_input) * 9) + 7) % 26
+                if 0 <= number_input <= 25:
+                    intresult = ((int(number_input) * 9) + 7) % 26
+                else:
+                    intresult = number_input
                 result = result + chr(intresult + 97).upper()
                 print("\n")
                 print("Encoded word is " + result)
