@@ -25,7 +25,8 @@ if select == "E":  # This is the driver code to for encryption
             number_input = (ord(str(my_list[i]).lower()) - 97)
         intresult = ((int(number_input) * 9) + 7) % 26
         result = result + chr(intresult + 97).upper()
-        print(result)
+        print("\n")
+        print("Encoded word is " + result)
 elif select == "D":  # This is the driver code to for decryption
     for i in range(len(code_input)):
         if code_input.isnumeric():
@@ -37,4 +38,5 @@ elif select == "D":  # This is the driver code to for decryption
         intresult = modInverse(number_input)
         print("Decoded number is " + str(intresult))
         result = result + chr(intresult + 97).upper()
+    print("\n")
     print("Decoded word is " + result)
