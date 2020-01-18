@@ -29,7 +29,8 @@ while 0 == 0:
                 if code_input.isnumeric():
                     number_input = int(code_input)
                 else:
-                    number_input = (ord(str(my_list[i]).lower()) - 97)
+                    current_character = my_list[i].lower()
+                    number_input = (ord(current_character) - 97)
                 intresult = ((int(number_input) * 9) + 7) % 26
                 result = result + chr(intresult + 97).upper()
                 print("\n")
@@ -39,10 +40,13 @@ while 0 == 0:
                 if code_input.isnumeric():
                     number_input = int(code_input)
                 else:
-                    number_input = (ord(str(my_list[i]).lower()) - 97)
-                    print(ord(str(my_list[i]).lower()))
+                    current_character = my_list[i].lower()
+                    number_input = (ord(current_character) - 97)
                     print(number_input)
-                intresult = modInverse(number_input)
+                if 0 <= number_input <= 25:
+                    intresult = modInverse(number_input)
+                else:
+                    intresult = number_input
                 print("Decoded number is " + str(intresult))
                 result = result + chr(intresult + 97).upper()
             print("\n")
