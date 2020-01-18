@@ -1,4 +1,5 @@
 # v0.9
+# infinite loop
 while 0 == 0:
     result = ""
 
@@ -11,6 +12,7 @@ while 0 == 0:
         return x
 
 
+    # input
     select = input("Enter E for encryption or D for decryption: ")
     if select == "E":
         code_input = input("Enter word to be encoded: ")
@@ -18,6 +20,7 @@ while 0 == 0:
         code_input = input("Enter word to be decoded: ")
     else:
         code_input = "error"
+
     if code_input != "error":
         my_list = list(code_input)
         print(len(code_input))
