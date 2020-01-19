@@ -1,5 +1,15 @@
 # v0.9
 # infinite loop
+import PySimpleGUI as sg
+
+layout = [[sg.Text('Welcome to Affine Cipher')],
+          [sg.Text('Select your Cipher Type')],
+          [sg.Radio('My first Radio!     ', "RADIO1", default=True)],
+          [sg.Button('NO'), sg.Button('Cancel')]]
+window = sg.Window('Everything bagel', default_element_size=(40, 1)).Layout(layout)
+button, values = window.Read()
+sg.Popup(button, values)
+
 while 0 == 0:
     result = ""
 
@@ -36,8 +46,8 @@ while 0 == 0:
                 else:
                     intresult = number_input
                 result = result + chr(intresult + 97).upper()
-                print("\n")
-                print("Encoded word is " + result)
+                print(intresult)
+            print("Encoded word is " + result)
         elif select == "D":  # This is the driver code to for decryption
             for i in range(len(code_input)):
                 if code_input.isnumeric():
