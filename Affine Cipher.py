@@ -2,10 +2,11 @@
 # infinite loop
 import PySimpleGUI as Sg
 
-layout = [[Sg.Text('Welcome to Affine Cipher')],
-          [Sg.Text('Select your Cipher Type')],
-          [Sg.Radio('My first Radio!     ', "RADIO1", default=True)]]
-window = Sg.Window('Affine Cipher', default_element_size=(40, 1)).Layout(layout)
+setup_layout = [[Sg.Text('Welcome to Affine Cipher')],
+                [Sg.Text('Select your Cipher Type')],
+                [Sg.Radio('Affine Cipher', "cipher_type", default=True)],
+                [Sg.Radio('Encrypt      ', "method", default=True), Sg.Radio('Decrypt', "method")]]
+window = Sg.Window('Affine Cipher', default_element_size=(40, 1)).Layout(setup_layout)
 values, event = window.Read()
 result = ""
 
