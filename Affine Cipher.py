@@ -43,9 +43,8 @@ if select == "E":  # This is the driver code to for encryption
             intresult = ((int(number_input) * 9) + 7) % 26
         else:
             intresult = number_input
-        result += chr(intresult + 97).upper()
-        result.capitalize()
-    result_layout = [[Sg.Text('Encrypted Result is' + result)]]
+        result += chr(intresult + 97)
+    Sg.popup('Your Encrypted Message is ', result.capitalize())
 elif select == "D":  # This is the driver code to for decryption
     for i in range(len(code_input)):
         if code_input.isnumeric():
@@ -59,7 +58,5 @@ elif select == "D":  # This is the driver code to for decryption
         else:
             intresult = number_input
         print("Decoded number is " + str(intresult))
-        result += chr(intresult + 97).lower()
-        result.capitalize()
-    result_layout = [[Sg.Text('Encrypted Result is' + result)]]
-result_window = Sg.Window('Affine Cipher', default_element_size=(40, 1)).Layout(result_layout)
+        result += chr(intresult + 97)
+    Sg.popup('Your Decrypted Message is ', result.capitalize())
