@@ -1,5 +1,4 @@
 # v0.9
-# infinite loop
 import PySimpleGUI as Sg
 
 setup_layout = [[Sg.Text('Welcome to Affine Cipher')],
