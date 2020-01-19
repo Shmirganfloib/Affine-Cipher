@@ -5,11 +5,15 @@ import PySimpleGUI as Sg
 setup_layout = [[Sg.Text('Welcome to Affine Cipher')],
                 [Sg.Text('Select your Cipher Type')],
                 [Sg.Radio('Affine Cipher', "cipher_type", default=True)],
-                [Sg.Radio('Encrypt      ', "method", default=True), Sg.Radio('Decrypt', "method")]]
+                [Sg.Radio('Encrypt      ', "method", default=True), Sg.Radio('Decrypt', "method")],
+                [Sg.Text('Enter Text:'), Sg.Input()],
+                [Sg.Button('Submit')]]
 window = Sg.Window('Affine Cipher', default_element_size=(40, 1)).Layout(setup_layout)
-values, event = window.Read()
 result = ""
-
+while True:
+    event, values = window.read()
+    if event in (None, 'Submit'):  # if user closes window or clicks cancel
+        window.close()
 
 # This function is a modified modular multiplicative inverse
 def modInverse(y):
