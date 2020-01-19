@@ -14,13 +14,12 @@ result = ""
 select = ""
 while True:
     event, values = window.read()
-    if event in (None, 'Submit'):  # if user closes window or clicks cancel
+    if event == 'Submit':  # if user closes window or clicks cancel
         code_input = str(values['code_input'])
         if values['encrypt_input']:
             select = "E"
         elif values['decrypt_input']:
             select = "D"
-        print(code_input)
         break
 
 
@@ -45,9 +44,9 @@ if select == "E":  # This is the driver code to for encryption
             intresult = ((int(number_input) * 9) + 7) % 26
         else:
             intresult = number_input
-        result = result + chr(intresult + 97).upper()
-        print(intresult)
-    print("Encoded word is " + result)
+        result += chr(intresult + 97).upper()
+        result.capitalize()
+    result_layout = [[Sg.Text('Encrypted Result is' + result)]]
 elif select == "D":  # This is the driver code to for decryption
     for i in range(len(code_input)):
         if code_input.isnumeric():
@@ -61,5 +60,7 @@ elif select == "D":  # This is the driver code to for decryption
         else:
             intresult = number_input
         print("Decoded number is " + str(intresult))
-        result = result + chr(intresult + 97).upper()
-    print("Decoded word is " + result)
+        result += chr(intresult + 97).lower()
+        result.capitalize()
+    result_layout = [[Sg.Text('Encrypted Result is' + result)]]
+result_window = Sg.Window('Affine Cipher', default_element_size=(40, 1)).Layout(result_layout)
