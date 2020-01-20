@@ -1,4 +1,5 @@
 # v0.9
+
 import PySimpleGUI as Sg
 
 setup_layout = [[Sg.Text('Welcome to Affine Cipher')],
@@ -6,20 +7,14 @@ setup_layout = [[Sg.Text('Welcome to Affine Cipher')],
                 [Sg.Radio('Affine Cipher', "cipher_type", default=True)],
                 [Sg.Radio('Encrypt      ', "method", default=True, key='encrypt_input'),
                  Sg.Radio('Decrypt', "method", key='decrypt_input')],
-                [Sg.Text('Enter Text:'), Sg.Input(key='code_input')],
-                [Sg.Button('Submit')]]
+                [Sg.Text('Input:')],
+                [Sg.Multiline(size=(70, 5), enter_submits=True, key='code_input', do_not_clear=False)],
+                [Sg.Text('Output:')],
+                [Sg.Output(size=(110, 10), )],
+                [Sg.Button('Submit', bind_return_key=True)]]
 window = Sg.Window('Affine Cipher', default_element_size=(40, 1)).Layout(setup_layout)
 result = ""
 select = ""
-while True:
-    event, values = window.read()
-    if event == 'Submit':  # if user closes window or clicks cancel
-        code_input = str(values['code_input'])
-        if values['encrypt_input']:
-            select = "E"
-        elif values['decrypt_input']:
-            select = "D"
-        break
 
 
 # This function is a modified modular multiplicative inverse
@@ -30,33 +25,38 @@ def modInverse(y):
     return k
 
 
-my_list = list(code_input)
-print(len(code_input))
-if select == "E":  # This is the driver code to for encryption
-    for i in range(len(code_input)):
-        if code_input.isnumeric():
-            number_input = int(code_input)
-        else:
-            current_character = my_list[i].lower()
-            number_input = (ord(current_character) - 97)
-        if 0 <= number_input <= 25:
-            intresult = ((int(number_input) * 9) + 7) % 26
-        else:
-            intresult = number_input
-        result += chr(intresult + 97)
-    Sg.popup('Your Encrypted Message is ', result.capitalize())
-elif select == "D":  # This is the driver code to for decryption
-    for i in range(len(code_input)):
-        if code_input.isnumeric():
-            number_input = int(code_input)
-        else:
-            current_character = my_list[i].lower()
-            number_input = (ord(current_character) - 97)
-            print(number_input)
-        if 0 <= number_input <= 25:
-            intresult = modInverse(number_input)
-        else:
-            intresult = number_input
-        print("Decoded number is " + str(intresult))
-        result += chr(intresult + 97)
-    Sg.popup('Your Decrypted Message is ', result.capitalize())
+while True:
+    result = ""
+    event, values = window.read()
+    if event in (None, 'EXIT'):
+        break
+    if event == 'Submit':
+        code_input = str(values['code_input'])
+        my_list = list(code_input)
+        if values['encrypt_input']:
+            for i in range(len(code_input)):
+                if code_input.isnumeric():
+                    number_input = int(code_input)
+                else:
+                    current_character = my_list[i].lower()
+                    number_input = (ord(current_character) - 97)
+                if 0 <= number_input <= 25:
+                    intresult = ((int(number_input) * 9) + 7) % 26
+                else:
+                    intresult = number_input
+                result += chr(intresult + 97).upper()
+            print("Your Encrypted Message is " + result)
+        elif values['decrypt_input']:
+            for i in range(len(code_input)):
+                if code_input.isnumeric():
+                    number_input = int(code_input)
+                else:
+                    current_character = my_list[i].lower()
+                    number_input = (ord(current_character) - 97)
+                if 0 <= number_input <= 25:
+                    intresult = modInverse(number_input)
+                else:
+                    intresult = number_input
+                result += chr(intresult + 97).capitalize()
+            print("Your Decoded Message is " + result)
+window.close()
