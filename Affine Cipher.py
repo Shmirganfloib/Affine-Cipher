@@ -46,7 +46,7 @@ while True:
                 else:
                     intresult = number_input
                 result += chr(intresult + 97).upper()
-            print("Your Encoded Message is " + result)
+            print("Your encoded message is: " + result)
         elif values['decrypt_input']:
             for i in range(len(code_input)):
                 if code_input.isnumeric():
@@ -59,5 +59,5 @@ while True:
                 else:
                     intresult = number_input
                 result += chr(intresult + 97).capitalize()
-            print("Your Decoded Message is " + result)
+            print("Your decoded message is: " + result)
 window.close()
