@@ -18,11 +18,13 @@ result = ""
 select = ""
 
 
-def char_to_num():
-    z = (ord(current_character) - 97)
+# This function converts characters to decimals
+def char_to_num(k):
+    z = (ord(char_list[k].lower()) - 97)
     return z
 
 
+# This function multiplies a number then adds a number and returns mod 26 of that
 def mod():
     x = ((int(number_input) * 9) + 7) % 26
     return x
@@ -36,6 +38,12 @@ def modInverse(y):
     return k
 
 
+# This function converts decimals to characters
+def num_to_char(n):
+    m = chr(n + 97)
+    return m
+
+
 while True:
     result = ""
     event, values = window.read()
@@ -43,31 +51,29 @@ while True:
         break
     if event == 'Submit':
         code_input = str(values['code_input'])
-        my_list = list(code_input)
-        if values['encrypt_input']:
+        char_list = list(code_input)
+        if values['encrypt_input']:  # Driver code for encryption
             for i in range(len(code_input)):
                 if code_input.isnumeric():
                     number_input = int(code_input)
                 else:
-                    current_character = my_list[i].lower()
-                    number_input = char_to_num()
+                    number_input = char_to_num(i)
                 if 0 <= number_input <= 25:
                     intresult = mod()
                 else:
                     intresult = number_input
-                result += chr(intresult + 97).upper()
+                result += num_to_char(intresult).upper()
             print("Your encoded message is: " + result)
-        elif values['decrypt_input']:
+        elif values['decrypt_input']:  # Driver code for decryption
             for i in range(len(code_input)):
                 if code_input.isnumeric():
                     number_input = int(code_input)
                 else:
-                    current_character = my_list[i].lower()
-                    number_input = (ord(current_character) - 97)
+                    number_input = (ord(char_list[i].lower()) - 97)
                 if 0 <= number_input <= 25:
                     intresult = modInverse(number_input)
                 else:
                     intresult = number_input
-                result += chr(intresult + 97).capitalize()
+                result += num_to_char(intresult).capitalize()
             print("Your decoded message is: " + result)
 window.close()
