@@ -1,4 +1,5 @@
 # v1.0
+# Created by CamShaft54, Reevak05, and MetalTurtle18
 
 import PySimpleGUI as Sg
 
