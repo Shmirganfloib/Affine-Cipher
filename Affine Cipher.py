@@ -2,7 +2,7 @@
 
 import PySimpleGUI as Sg
 
-# uncomment the lines below when we add additonal ciphers
+# uncomment the lines below when we add additional ciphers
 setup_layout = [  # [Sg.Text('Welcome to Affine Cipher')],
     # [Sg.Text('Select your Cipher Type')],
     # [Sg.Radio('Affine Cipher', "cipher_type", default=True)],
