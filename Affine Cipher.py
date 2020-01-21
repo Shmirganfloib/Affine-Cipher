@@ -18,6 +18,16 @@ result = ""
 select = ""
 
 
+def char_to_num():
+    z = (ord(current_character) - 97)
+    return z
+
+
+def mod():
+    x = ((int(number_input) * 9) + 7) % 26
+    return x
+
+
 # This function is a modified modular multiplicative inverse
 def modInverse(y):
     for k in range(0, 26):
@@ -40,9 +50,9 @@ while True:
                     number_input = int(code_input)
                 else:
                     current_character = my_list[i].lower()
-                    number_input = (ord(current_character) - 97)
+                    number_input = char_to_num()
                 if 0 <= number_input <= 25:
-                    intresult = ((int(number_input) * 9) + 7) % 26
+                    intresult = mod()
                 else:
                     intresult = number_input
                 result += chr(intresult + 97).upper()
