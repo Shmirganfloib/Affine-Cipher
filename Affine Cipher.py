@@ -36,8 +36,8 @@ while True:
 
 if affine:
     affine_layout = [
-        [Sg.Radio('Encrypt      ', "method", default=True, key='encrypt_input'),
-         Sg.Radio('Decrypt', "method", key='decrypt_input')],
+        [Sg.Radio('Encrypt      ', "caesar_method", default=True, key='encrypt_input'),
+         Sg.Radio('Decrypt', "caesar_method", key='decrypt_input')],
         [Sg.Text('Enter operands for encryption/decryption:')],
         [Sg.Text('Multiplier or Divisor:'), Sg.Input(default_text='1', key='multiplier'),
          Sg.Text('Addend or Minuend:'), Sg.Input(default_text='0', key='addend'),
@@ -45,18 +45,16 @@ if affine:
         [Sg.Text('Input:')],
         [Sg.Multiline(size=(70, 5), enter_submits=True, key='code_input', do_not_clear=False)],
         [Sg.Text('Output:')],
-        [Sg.Output(size=(110, 10), )],
+        [Sg.Output(size=(110, 10))],
         [Sg.Button('Submit', bind_return_key=True)]]
     window = Sg.Window('Affine Cipher', default_element_size=(40, 1)).Layout(affine_layout)
     result = ""
     select = ""
 
-
     # This function multiplies a number then adds a number and returns mod 26 of that
     def mod():
         x = ((int(number_input) * multiplier) + addend) % 26
         return x
-
 
     # This function is a modified modular multiplicative inverse
     def modInverse(y):
@@ -108,4 +106,22 @@ if affine:
                 print("Your decoded message is: " + result)
 if caesar:
     print("work in progress")
+    caesar_layout = [
+        [Sg.Text('Welcome to Caesar Cipher')],
+        [Sg.Radio('Encrypt      ', "caesar_method", default=True, key='encrypt_input'),
+         Sg.Radio('Decrypt', "caesar_method", key='decrypt_input')],
+        [Sg.Text('Enter key (A, B, C, etc.)'), Sg.Input(default_text='A', key='char_key')],
+        [Sg.Text('Input:')],
+        [Sg.Multiline(size=(70, 5), enter_submits=True, key='char_input')],
+        [Sg.Text('Output:')],
+        [Sg.Output(size=(110, 10))],
+        [Sg.Button('Submit', bind_return_key=True)]]
+    window = Sg.Window('Cipher Select', default_element_size=(40, 1)).Layout(caesar_layout)
+    while True:
+        result = ""
+        event, values = window.read()
+        if event in (None, 'EXIT'):
+            break
+        if event == 'Submit':
+            print("work in progress")
 window.close()
