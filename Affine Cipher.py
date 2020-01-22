@@ -15,7 +15,7 @@ window = Sg.Window('Cipher Select', default_element_size=(40, 1)).Layout(cipher_
 
 # This function converts characters to decimals
 def char_to_num(k):
-    z = (ord(char_list[k].lower()) - 97)
+    z = (ord(k.lower()) - 97)
     return z
 
 
@@ -59,7 +59,7 @@ if affine:
     # This function is a modified modular multiplicative inverse
     def modInverse(y):
         for k in range(0, 26):
-            if (9 * multiplier) % 26 == ((y - addend) % 26):
+            if (multiplier * k) % 26 == ((y - addend) % 26):
                 return k
         return k
 
@@ -85,7 +85,7 @@ if affine:
                     if code_input.isnumeric():
                         number_input = int(code_input)
                     else:
-                        number_input = char_to_num(i)
+                        number_input = char_to_num(char_list[i])
                     if 0 <= number_input <= 25:
                         intresult = mod()
                     else:
@@ -108,20 +108,63 @@ if caesar:
     print("work in progress")
     caesar_layout = [
         [Sg.Text('Welcome to Caesar Cipher')],
-        [Sg.Radio('Encrypt      ', "caesar_method", default=True, key='encrypt_input'),
-         Sg.Radio('Decrypt', "caesar_method", key='decrypt_input')],
-        [Sg.Text('Enter key (A, B, C, etc.)'), Sg.Input(default_text='A', key='char_key')],
+        [Sg.Radio('Encrypt      ', "caesar_method", default=True, key='caesar_encrypt'),
+         Sg.Radio('Decrypt', "caesar_method", key='caesar_decrypt')],
+        [Sg.Text('Key: A -->'),
+         Sg.Slider(range=(0, 25), orientation='h', size=(33, 20), default_value=0, key='num_key')],
         [Sg.Text('Input:')],
         [Sg.Multiline(size=(70, 5), enter_submits=True, key='char_input')],
         [Sg.Text('Output:')],
-        [Sg.Output(size=(110, 10))],
+        [Sg.Output(size=(70, 10))],
         [Sg.Button('Submit', bind_return_key=True)]]
     window = Sg.Window('Cipher Select', default_element_size=(40, 1)).Layout(caesar_layout)
+
+
+    def caesar_shift(p):
+        shift_output = (p + num_key) % 26
+        return shift_output
+
+
+    def caesar_unshift(q):
+        unshift_output = (q - num_key) % 26
+        return unshift_output
+
+
     while True:
-        result = ""
         event, values = window.read()
+        result = ""
+        num_key = int(values['num_key'])
+        caesar_encrypt = values['caesar_encrypt']
+        caesar_decrypt = values['caesar_decrypt']
         if event in (None, 'EXIT'):
             break
         if event == 'Submit':
-            print("work in progress")
+            char_input = values['char_input']
+            char_input_list = list(char_input)
+            if caesar_encrypt:
+                for i in range(len(char_input)):
+                    if char_input_list[i].isnumeric():
+                        num_input = int(char_input_list[i])
+                    else:
+                        num_input = char_to_num(char_input_list[i])
+                    if 0 <= num_input <= 25:
+                        intresult = caesar_shift(num_input)
+                        intresult = num_to_char(intresult)
+                    else:
+                        intresult = str(num_input)
+                    result += str(intresult)
+                print(result.rstrip('-87-87'))
+            if caesar_decrypt:
+                for i in range(len(char_input)):
+                    if char_input_list[i].isnumeric():
+                        num_input = int(char_input_list[i])
+                    else:
+                        num_input = char_to_num(char_input_list[i])
+                    if 0 <= num_input <= 25:
+                        intresult = caesar_unshift(num_input)
+                        intresult = num_to_char(intresult)
+                    else:
+                        intresult = str(num_input)
+                    result += str(intresult)
+                print(result.rstrip('-87-87'))
 window.close()
