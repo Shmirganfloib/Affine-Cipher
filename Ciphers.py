@@ -5,6 +5,7 @@ import random
 
 import PySimpleGUI as Sg
 
+Sg.theme('TealMono')
 cipher_select_layout = [
     [Sg.Text('Select cipher:')],
     [Sg.Radio('Affine Cipher', "cipher_type", key='affine', default=True),
