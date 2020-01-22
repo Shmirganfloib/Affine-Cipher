@@ -41,7 +41,7 @@ def mod():
 # This function is a modified modular multiplicative inverse
 def modInverse(y):
     for k in range(0, 26):
-        if (9 * multiplier) % 26 == ((y - addend) % 26):
+        if (multiplier * k) % 26 == ((y - addend) % 26):
             return k
     return k
 
