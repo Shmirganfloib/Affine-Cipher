@@ -22,6 +22,21 @@ def char_to_num(k):
     return z
 
 
+
+# This function multiplies a number then adds a number and returns mod 26 of that
+def mod():
+    x = ((int(number_input) * multiplier) + addend) % 26
+    return x
+
+
+# This function is a modified modular multiplicative inverse
+def modInverse(y):
+    for k in range(0, 26):
+        if (multiplier * k) % 26 == ((y - addend) % 26):
+            return k
+    return k
+  
+  
 # This function converts decimals to characters
 def num_to_char(n):
     m = chr(n + 97)
