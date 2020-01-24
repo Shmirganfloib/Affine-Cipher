@@ -22,7 +22,6 @@ def char_to_num(k):
     return z
 
 
-
 # This function multiplies a number then adds a number and returns mod 26 of that
 def mod():
     x = ((int(number_input) * multiplier) + addend) % 26
@@ -31,6 +30,7 @@ def mod():
 
 # This function is a modified modular multiplicative inverse
 def modInverse(y):
+    k = 0
     for k in range(0, 26):
         if (multiplier * k) % 26 == ((y - addend) % 26):
             return k
@@ -67,19 +67,6 @@ if affine:
     window = Sg.Window('Affine Cipher', default_element_size=(40, 1)).Layout(affine_layout)
     result = ""
     select = ""
-
-    # This function multiplies a number then adds a number and returns mod 26 of that
-    def mod():
-        x = ((int(number_input) * multiplier) + addend) % 26
-        return x
-
-    # This function is a modified modular multiplicative inverse
-    def modInverse(y):
-        for k in range(0, 26):
-            if (multiplier * k) % 26 == ((y - addend) % 26):
-                return k
-        return k
-
 
     while True:
         result = ""
