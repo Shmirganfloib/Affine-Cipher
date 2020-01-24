@@ -7,14 +7,15 @@ import PySimpleGUI as Sg
 Sg.theme('TealMono')  # Set PySimpleGUI to "TealMono"
 cipher_select_layout = [  # PySimpleGUI layout for cipher setup window
     [Sg.Text('Select cipher:')],
-    [Sg.Radio('Affine Cipher', "cipher_type", key='affine', default=True),
-     Sg.Radio('Caesar Cipher', "cipher_type", key='caesar', default=True)],
+    [Sg.Radio('Affine Cipher', "cipher_type", key='affine', default=False),
+     Sg.Radio('Caesar Cipher', "cipher_type", key='caesar', default=False),
+     Sg.Radio('Encrypt/Decrypt with Key', "cipher_type", key='key', default=False)],
     [Sg.Button('Submit', bind_return_key=True)]]
 # Create window from layout
 window = Sg.Window('Cipher Select', default_element_size=(40, 1)).Layout(cipher_select_layout)
 affine = False
 caesar = False
-
+key = False
 
 # This function converts characters to decimals
 def char_to_num(k):
@@ -50,6 +51,7 @@ while True:
     if event == 'Submit':
         affine = values['affine']
         caesar = values['caesar']
+        key = values['key']
         break
 if affine:
     affine_layout = [
