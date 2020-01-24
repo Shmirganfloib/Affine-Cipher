@@ -1,17 +1,19 @@
 # v1.0
 # Created by CamShaft54, Reevak05, and MetalTurtle18
-
 import random
 
 import PySimpleGUI as Sg
 
-Sg.theme('TealMono')
-cipher_select_layout = [
+Sg.theme('TealMono')  # Set PySimpleGUI to "TealMono"
+cipher_select_layout = [  # PySimpleGUI layout for cipher setup window
     [Sg.Text('Select cipher:')],
     [Sg.Radio('Affine Cipher', "cipher_type", key='affine', default=True),
      Sg.Radio('Caesar Cipher', "cipher_type", key='caesar', default=True)],
     [Sg.Button('Submit', bind_return_key=True)]]
+# Create window from layout
 window = Sg.Window('Cipher Select', default_element_size=(40, 1)).Layout(cipher_select_layout)
+affine = False
+caesar = False
 
 
 # This function converts characters to decimals
@@ -34,7 +36,6 @@ while True:
         affine = values['affine']
         caesar = values['caesar']
         break
-
 if affine:
     affine_layout = [
         [Sg.Radio('Encrypt      ', "caesar_method", default=True, key='encrypt_input'),
@@ -106,12 +107,11 @@ if affine:
                     result += num_to_char(intresult).capitalize()
                 print("Your decoded message is: " + result)
 if caesar:
-    print("work in progress")
     caesar_layout = [
         [Sg.Text('Welcome to Caesar Cipher')],
         [Sg.Radio('Encrypt      ', "caesar_method", default=True, key='caesar_encrypt'),
          Sg.Radio('Decrypt', "caesar_method", key='caesar_decrypt')],
-        [Sg.Text('Key: A -->'),
+        [Sg.Text('Key: Decrypted A -->'),
          Sg.Slider(range=(0, 25), orientation='h', size=(33, 20), default_value=0, key='num_key')],
         [Sg.Text('Input:')],
         [Sg.Multiline(size=(70, 5), enter_submits=True, key='char_input')],
@@ -121,22 +121,22 @@ if caesar:
     window = Sg.Window('Cipher Select', default_element_size=(40, 1)).Layout(caesar_layout)
 
 
-    def caesar_shift(p):
+    def caesar_unshift(p):
         shift_output = (p + num_key) % 26
         return shift_output
 
 
-    def caesar_unshift(q):
+    def caesar_shift(q):
         unshift_output = (q - num_key) % 26
         return unshift_output
 
 
     while True:
         event, values = window.read()
-        result = ""
         num_key = int(values['num_key'])
         caesar_encrypt = values['caesar_encrypt']
         caesar_decrypt = values['caesar_decrypt']
+        result = ""
         if event in (None, 'EXIT'):
             break
         if event == 'Submit':
@@ -151,8 +151,10 @@ if caesar:
                     if 0 <= num_input <= 25:
                         intresult = caesar_shift(num_input)
                         intresult = num_to_char(intresult)
+                    elif num_input == -65:
+                        intresult = " "
                     else:
-                        intresult = str(num_input)
+                        intresult = num_input
                     result += str(intresult)
                 print(result.rstrip('-87-87'))
             if caesar_decrypt:
@@ -164,8 +166,10 @@ if caesar:
                     if 0 <= num_input <= 25:
                         intresult = caesar_unshift(num_input)
                         intresult = num_to_char(intresult)
+                    elif num_input == -65:
+                        intresult = " "
                     else:
-                        intresult = str(num_input)
+                        intresult = num_input
                     result += str(intresult)
                 print(result.rstrip('-87-87'))
 window.close()
